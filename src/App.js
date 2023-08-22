@@ -8,6 +8,7 @@ function App() {
   const [user, setUser] = useState("");
   var [userUpdate, setuserUpdate] = useState("");
   var [namaUserLama, setnamaUserLama] = useState("");
+  var [isupdate, setisupdate] = useState(false);
   function ubahUser(e) {
     setUser(e.target.value);
     // console.log(e.target.value);
@@ -25,6 +26,7 @@ function App() {
   function editData(nama) {
     setuserUpdate(nama);
     setnamaUserLama(nama);
+    setisupdate(true);
   }
 
   function updateData() {
@@ -34,19 +36,26 @@ function App() {
     usersSelainDiPilih.push(userUpdate);
     setUsers(usersSelainDiPilih);
     setuserUpdate("");
+    setisupdate(false);
   }
 
   return (
     <div>
-      <input value={user} type="text" onChange={(e) => ubahUser(e)} />
-      <button onClick={tambahData}>Tambah</button>
-      <br />
-      <input
-        value={userUpdate}
-        type="text"
-        onChange={(e) => setuserUpdate(e.target.value)}
-      />
-      <button onClick={updateData}>Update</button>
+      {!isupdate ? (
+        <div>
+          <input value={user} type="text" onChange={(e) => ubahUser(e)} />
+          <button onClick={tambahData}>Tambah</button>
+        </div>
+      ) : (
+        <div>
+          <input
+            value={userUpdate}
+            type="text"
+            onChange={(e) => setuserUpdate(e.target.value)}
+          />
+          <button onClick={updateData}>Update</button>
+        </div>
+      )}
       <br />
       <h4>Daftar users</h4>
       <ul>
